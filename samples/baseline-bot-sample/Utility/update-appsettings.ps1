@@ -18,6 +18,10 @@ $translateEndpoint = $(az cognitiveservices account list --query "[?kind=='TextT
 $translateKey = $(az cognitiveservices account keys list -g $translateRg -n $translateName --query 'key1' -o tsv)
 
 # get text analytics key
+$analyticsRg = $(az cognitiveservices account list --query "[?kind=='TextAnalytics'].resourceGroup" -o tsv)
+$analyticsName = $(az cognitiveservices account list --query "[?kind=='TextAnalytics'].name" -o tsv)
+$analyticsEndpoint = $(az cognitiveservices account list --query "[?kind=='TextAnalytics'].endpoint" -o tsv)
+$analyticsKey = $(az cognitiveservices account keys list -g $analyticsRg -n $analyticsName --query 'key1' -o tsv)
 
 (Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_APP_ID_HERE>', $appId) | Set-Content .\samples\baseline-bot-sample\appsettings.json
 (Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_APP_PASSWORD_HERE>', $appPass) | Set-Content .\samples\baseline-bot-sample\appsettings.json
@@ -27,3 +31,5 @@ $translateKey = $(az cognitiveservices account keys list -g $translateRg -n $tra
 (Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_BOT_SECRET_HERE>', $botSecret) | Set-Content .\samples\baseline-bot-sample\appsettings.json
 (Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_TRANSLATOR_TEXT_ENDPOINT_HERE>', $translateEndpoint) | Set-Content .\samples\baseline-bot-sample\appsettings.json
 (Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_TRANSLATOR_TEXT_KEY_HERE>', $translateKey) | Set-Content .\samples\baseline-bot-sample\appsettings.json
+(Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_TEXT_ANALYTICS_ENDPOINT_HERE>', $analyticsEndpoint) | Set-Content .\samples\baseline-bot-sample\appsettings.json
+(Get-Content .\samples\baseline-bot-sample\appsettings.json).replace('<YOUR_TEXT_ANALYTICS_KEY_HERE>', $analyticsKey) | Set-Content .\samples\baseline-bot-sample\appsettings.json
